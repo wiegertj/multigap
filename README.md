@@ -11,7 +11,7 @@ Python scripts for normative gap analyses of UK Biobank brain features, clinical
 | [`3_benchmark_normative_models.py`](3_benchmark_normative_models.py) | Evaluate out-of-fold prediction performance and coefficient-based feature importance.                    |
 | [`4_1_largest_site_sensitivity.py`](4_1_largest_site_sensitivity.py) | Test robustness using the largest imaging site as a holdout.                                             |
 | [`4_2_modality_sensitivity.py`](4_2_modality_sensitivity.py) | Compare associations before and after adjustment for leave-one-out modality summaries.                   |
-| [`4_3_questionnaire_missingness_sensitivity.py`](4_3_questionnaire_missingness_sensitivity.py) | Refit under sctrict questionnaire-based definitions and compare with MAIN results.                       |
+| [`4_3_questionnaire_missingness_sensitivity.py`](4_3_questionnaire_missingness_sensitivity.py) | Refit under sctrict questionnaire-based definitions and compare with main analysis results.                       |
 | [`5_gap_gap_associations_multivariate.py`](5_gap_gap_associations_multivariate.py) | Calculate pairwise gap correlations and multivariate associations with clinical and diagnostic measures. |
 
 ## Dependencies
