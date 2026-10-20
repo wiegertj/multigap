@@ -42,32 +42,6 @@ MAIN_EDGE_TABLE_CANDIDATES = [
 ]
 
 
-# Obsolete sleep-related normative targets excluded from this sensitivity analysis.
-# Continuous Sleep_duration is intentionally retained.
-EXCLUDED_SLEEP_TARGETS = {
-    ...
-}
-
-
-def drop_obsolete_sleep_targets_from_normative_module(norm: Any) -> None:
-    removed = []
-    for attr in ("BASE_TARGETS", "TARGETS"):
-        target_map = getattr(norm, attr, None)
-        if isinstance(target_map, dict):
-            for target in sorted(EXCLUDED_SLEEP_TARGETS):
-                if target in target_map:
-                    target_map.pop(target, None)
-                    removed.append(f"{attr}.{target}")
-
-    print("Excluded obsolete sleep targets from SECONDARY normative refit:")
-    if removed:
-        for item in removed:
-            print(f"  - {item}")
-    else:
-        print("  - none found in inherited target dictionaries")
-    print("Retained sleep target: Sleep_duration")
-
-
 def install_sleep_gap_filter(fig: Any) -> None:
     original_graph_gap_cols = fig.graph_gap_cols
 
@@ -242,9 +216,6 @@ def run_secondary_normative_refit(
     main_normative_dir: Path,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    # Remove obsolete sleep targets first; retain continuous Sleep_duration.
-    drop_obsolete_sleep_targets_from_normative_module(norm)
 
     # Core SECONDARY switch.
     norm.HEALTHY_COL = SECONDARY_HC
