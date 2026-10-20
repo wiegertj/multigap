@@ -1,22 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Standalone MAIN-primary analysis of the current 13-gap space.
-
-This script performs TWO analyses using the current MAIN definitions:
-
-1) Pairwise PRIMARY partial correlations among every gap in the 13-gap space.
-
-   Each tested gap pair is adjusted only for the ordinary MAIN covariates:
-       - sex
-       - age_assessment_center_2
-       - site
-       - etiv
-       - mean_motion
-
-2) Joint / multivariate association of ALL 13 gaps with each current
-   clinical or diagnosis measure, adjusting for the same available ordinary
-   covariates.
+Pairwise partial correlations and joint multivariate gap analyses
 """
 
 from __future__ import annotations
@@ -58,7 +43,6 @@ MEAN_MOTION_ID_COL = "eid"
 MEAN_MOTION_VALUE_COL = "framewise_dis"
 MEAN_MOTION_COVARIATE_COL = "mean_motion"
 
-# Same continuous target list as the supplied Figure-2 script.
 REGRESSION_TARGETS = [
     "brain_age",
     "Fluid_intelligence_score",
@@ -70,8 +54,6 @@ REGRESSION_TARGETS = [
     "trail_making",
 ]
 
-# Final MAIN-primary 13-gap space.
-# FreeSurfer contributes 7 targets; connectivity contributes 6 targets.
 FEATURE_TARGET_EXCLUSIONS = {
     "freesurfer": set(),
     "connectivity": {
@@ -81,7 +63,6 @@ FEATURE_TARGET_EXCLUSIONS = {
 
 FEATURE_SET_ORDER = ["freesurfer", "connectivity"]
 
-# Current MAIN diagnosis/control variables.
 HC_COL = "MAIN_HC"
 AUD_COL = "MAIN_AUD"
 MDD_COL = "MAIN_MDD"
@@ -94,7 +75,6 @@ DIAGNOSIS_COLUMNS = [
     ANX_COL,
 ]
 
-# Clinical score variables used by Figure 2.
 SCORE_PREDICTOR_COLS = [
     "audit_obs",
     "phq9_sum",
@@ -109,7 +89,6 @@ SCORE_PREDICTOR_LABELS = {
 
 RANK_NORMALIZE_CLINICAL_MEASURES = True
 
-# Same candidate adjustment covariates as Figure 2.
 COVARIATE_CANDIDATES = [
     "sex",
     "age_assessment_center_2",
@@ -133,13 +112,8 @@ COVARIATE_SOURCE_ALIASES = {
 FDR_ALPHA = 0.05
 CI_LEVEL = 0.95
 RANDOM_SEED = 123
-
-# Bootstrap for the multivariate partial-R confidence intervals.
-# 1000 is a reasonable manuscript setting; use 2000+ if you want a smoother CI
-# and can tolerate the extra runtime.
 N_BOOT_MULTIVARIATE_R = 1000
 
-# Minimum sample requirements.
 MIN_N_CORRELATION = 10
 MIN_N_MULTIVARIATE = 30
 MIN_DIAGNOSIS_CASES = 10
@@ -150,14 +124,9 @@ HEATMAP_DPI = 350
 HEATMAP_ANNOTATE = True
 HEATMAP_SHOW_Q_STARS = True
 HEATMAP_FIGSIZE = (15.5, 13.5)
-
-# Thick divider between imaging modalities in the correlation heatmap.
-# The gap columns are ordered by FEATURE_SET_ORDER, so this border cleanly
-# separates the FreeSurfer block from the connectivity block on both axes.
 HEATMAP_MODALITY_BORDER_LINEWIDTH = 3.0
 HEATMAP_MODALITY_BORDER_COLOR = "black"
 
-# Multivariate-R forest plot.
 MULTIVARIATE_FIGSIZE = (11.5, 7.2)
 MULTIVARIATE_DPI = 350
 
